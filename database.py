@@ -4,22 +4,22 @@ import sys
 
 db_name = "test.db"
 con = None
-
-def get_input():
-	num_classes = input("How many classes do you have? ")
-	num_pattern = re.compile("^[0-9]+$")
-	while not num_pattern.match(num_classes):
-		print("Please enter a valid number")
-		num_classes = input("How many classes do you have? ")
-	num_classes = int(num_classes)
-	schedule = []
-	for i in range(num_classes):
-		course = []
-		course.append(input("Name of class " + str(i + 1) + ": ").upper())
-		course.append(input("Start time of class " + str(i + 1) + ": ").upper())
-		course.append(input("End time of class " + str(i + 1) + ": ").upper())
-		schedule.append(course)
-	return schedule
+#
+# def get_input():
+# 	num_classes = input("How many classes do you have? ")
+# 	num_pattern = re.compile("^[0-9]+$")
+# 	while not num_pattern.match(num_classes):
+# 		print("Please enter a valid number")
+# 		num_classes = input("How many classes do you have? ")
+# 	num_classes = int(num_classes)
+# 	schedule = []
+# 	for i in range(num_classes):
+# 		course = []
+# 		course.append(input("Name of class " + str(i + 1) + ": ").upper())
+# 		course.append(input("Start time of class " + str(i + 1) + ": ").upper())
+# 		course.append(input("End time of class " + str(i + 1) + ": ").upper())
+# 		schedule.append(course)
+# 	return schedule
 
 def put_db(user, schedule, friends = None):
 	user_sanitized = user.upper()
