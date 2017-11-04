@@ -40,9 +40,51 @@ def put_db(user, schedule, friends = None):
 		if con:
 			con.close()
 
+def get_user_classes(user_email):
+	classes = []
+	try:
+		con = sql.connect(db_name)
+		with con:
+			cur = con.cursor()
+			cur.execute('''SELECT classes FROM main WHERE email = ?''', (user_email,))
+			classes = cur.fetchall()
+			classes = eval(classes[0][0])
+	except sql.Error as error:
+		print("Error %s", str(error))
+		sys.exit(1)
+	finally:
+		if con:
+			con.close()
+	return classes
 
-
+def get_friends(user_email):
+	user_email = user_email.upper()
+	friends = []
+	try:
+		con = sql.connect(db_name)
+		with con:
+			cur = con.cursor()
+			cur.execute('''SELECT friends FROM main WHERE email = ?''', (user_email,))
+			friends = cur.fetchall()
+			friends = eval(friends[0][0])
+	except sql.Error as error:
+		print("Error %s", str(error))
+		sys.exit(1)
+	finally:
+		if con:
+			con.close()
+	return friends
 
 if __name__ == "__main__":
-	schd = get_input()
-	put_db("user1", schd)
+	# friendsa = ["user2"]
+	# friendsb = ["user1"]
+	# schd = get_input()
+	# put_db("user1", schd, friendsa)
+	# schd = get_input()
+	# put_db("user2", schd, friendsb)
+	friends = get_friends("user1")
+	friend_classes = []
+	for x in friends:
+		friend_classes.append([x, get_user_classes(x)])
+	print(friend_classes)
+
