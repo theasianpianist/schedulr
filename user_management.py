@@ -8,7 +8,7 @@ def check_password(user_email, password):
 			cur = con.cursor()
 			cur.execute('''SELECT pass FROM main WHERE email = ?''', (user_email,))
 			tpass = cur.fetchall()
-			if password == tpass[0][0]:
+			if tpass and password == tpass[0][0]:
 				return True
 			return False
 	except sql.Error as error:
@@ -16,3 +16,11 @@ def check_password(user_email, password):
 	finally:
 		if con:
 			con.close()
+
+# def add_user(user_email, password):
+# 	user_email = user_email.upper()
+# 	try:
+# 		con = sql.connect(db_name)
+# 		with con:
+# 			cur = con.cursor()
+# 			cur.execute('''INSERT into MAIN (email, pass) VALUES(?,?)''', (user_email, password))

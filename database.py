@@ -21,21 +21,28 @@ def get_input():
 		schedule.append(course)
 	return schedule
 
-def put_db(user, schedule, friends = None):
-	user_sanitized = user.upper()
-	schedule_sanitized = schedule
-	friends_sanitized = []
-	if friends:
-		friends_sanitized = [x.upper() for x in friends]
+def put_classes(user, schedule):
+	user = user.upper()
 	try:
 		con = sql.connect(db_name)
 		with con:
 			cur = con.cursor()
-			cur.execute('''CREATE TABLE IF NOT EXISTS main(email TEXT PRIMARY KEY, classes TEXT, friends TEXT, pass TEXT)''')
-			cur.execute('''INSERT INTO main (email, classes, friends) VALUES(?, ?, ?)''', (str(user_sanitized), str(schedule_sanitized), str(friends_sanitized)))
+			cur.execute('''UPDATE main SET classes = ? WHERE email = ?''', (schedule, user))
 	except sql.Error as error:
 		print("Error %s", str(error))
-		sys.exit(1)
+	finally:
+		if con:
+			con.close()
+
+def put_friends(user, friends):
+	user = user.upper()
+	try:
+		con = sql.connect(db_name)
+		with con:
+			cur = con.cursor()
+			cur.execute('''UPDATE main SET friends = ? WHERE email = ?''', (friends, user))
+	except sql.Error as error:
+		print("Error %s", str(error))
 	finally:
 		if con:
 			con.close()

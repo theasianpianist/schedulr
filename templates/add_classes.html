@@ -1,15 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-{% if session['logged_in'] %}
-<p>You're logged in already!</p>
-{% else %}
- 
- 
-<form action="/login" method="POST">
+
+<form action="/submit_classes" method="POST">
 	<div class="login">
 		<div class="login-screen">
 			<div class="app-title">
-				<h1>Login</h1>
+				<h1>Enter Classes</h1>
 			</div>
 			{% with messages = get_flashed_messages() %}
       		{% if messages %}
@@ -24,21 +20,19 @@
  
 			<div class="login-form">
 				<div class="control-group">
-				<input type="text" class="login-field" value="" placeholder="username" name="username">
-				<label class="login-field-icon fui-user" for="login-name"></label>
+				<input type="text" class="login-field" value="" placeholder="username" name="class1">
+				<label class="login-field-icon fui-user"></label>
 				</div>
  
 				<div class="control-group">
-				<input type="password" class="login-field" value="" placeholder="password" name="password">
-				<label class="login-field-icon fui-lock" for="login-pass"></label>
+				<input type="text" class="login-field" value="" placeholder="password" name="class2">
+				<label class="login-field-icon fui-lock"></label>
 				</div>
  
-                <input type="submit" value="Add classes" class="btn btn-primary btn-large btn-block" >
+                <input type="submit" value="Log in" class="btn btn-primary btn-large btn-block" >
 			    <br>
 			</div>
 		</div>
 	</div>
 </form>
- 
-{% endif %}
 {% endblock %}
