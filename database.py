@@ -72,7 +72,10 @@ def get_friends(user_email):
 			cur = con.cursor()
 			cur.execute('''SELECT friends FROM main WHERE email = ?''', (user_email,))
 			friends = cur.fetchall()
-			friends = eval(friends[0][0])
+			try:
+				friends = eval(friends[0][0])
+			except TypeError as e:
+				return None
 	except sql.Error as error:
 		print("Error %s", str(error))
 		sys.exit(1)
