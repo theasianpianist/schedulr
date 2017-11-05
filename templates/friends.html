@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+
+<form action="/submit_friend" method="POST">
+	<div>
+		<div class="login-screen">
+			<div class="app-title">
+				<h1>Add A Friend</h1>
+			</div>
+			{% with messages = get_flashed_messages() %}
+      		{% if messages %}
+        		{% for message in messages %}
+                    <div style="text-align: center">
+            		<span style="color: red;">{{message}} </span>
+                    </div><br>
+        		{% endfor %}
+        		</ul>
+      		{% endif %}
+		    {% endwith %}
+
+			<div class="login-form">
+                <div class="control-group">
+                    <h2>Enter a friend's email address:</h2>
+                </div>
+				<div class="control-group">
+                    <input type="text" class="login-field" value="" placeholder="Email" name="friend_email">
+				</div>
+
+
+                <input type="submit" value="Add Friend" class="btn btn-primary btn-large btn-block" >
+			    <br>
+                {% if common_time %}
+                <p>Your shared time is {{common_time}}</p>
+                {% endif %}
+			</div>
+		</div>
+	</div>
+</form>
+{% endblock %}

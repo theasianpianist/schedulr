@@ -4,7 +4,7 @@ from flask_login import login_required, logout_user, login_user, LoginManager, c
 import os
 import database
 import comparison
-from user_management import check_password
+from user_management import check_password, add_friend
 app = Flask(__name__)
 
 lm = LoginManager()
@@ -44,6 +44,8 @@ def add_classes():
 
 @app.route('/submit_classes', methods=['POST'])
 def submit_classes():
+	if not session.get('logged_in'):
+		return render_template('login.html')
 	week = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"]
 	classes = []
 	starts = []
@@ -85,12 +87,30 @@ def common():
 
 @app.route('/find_common', methods=['POST'])
 def find_common():
+	if not session.get('logged_in'):
+		return render_template('login.html')
 	friend = request.form.get('friends')
 	week = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"]
 	time = []
 	for day in week:
 		time.append(comparison.find_shared_free_time(g.user.get_id(), friend, day))
 	return render_template('common.html', friend_list = database.get_friends(g.user.get_id()), common_time = time)
+
+@app.route('/add_friends')
+def add_friends():
+	if not session.get('logged_in'):
+		return render_template('login.html')
+	else:
+		return render_template('friends.html')
+
+@app.route('/submit_friend', methods=['POST'])
+def submit_friend():
+	if not session.get('logged_in'):
+		return render_template('login.html')
+	friend_email = request.form['friend_email']
+	add_friend(g.user.get_id(), friend_email)
+	flash("Friend added")
+	return render_template('friends.html')
 
 
 @app.route('/login', methods=['GET','POST'])

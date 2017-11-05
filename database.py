@@ -51,8 +51,10 @@ def get_user_classes(user_email, day):
 			cur = con.cursor()
 			cur.execute("SELECT (%s) FROM main WHERE email = ?" % str(day), (user_email,))
 			classes = cur.fetchall()
-			if classes[0][0] is not None:
+			if classes and classes[0][0]:
 				classes = eval("[" + classes[0][0] + "]")
+			else:
+				return [(None,)]
 	except sql.Error as error:
 		print("Error %s", str(error))
 		sys.exit(1)
