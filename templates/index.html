@@ -1,26 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
-    <div>
-		<div class="login-screen">
-			<div class="app-title">
-				<h1>Welcome, {{user}}</h1>
-			</div>
-			{% with messages = get_flashed_messages() %}
-      		{% if messages %}
-        		{% for message in messages %}
-                    <div style="text-align: center">
-            		<span style="color: red;">{{message}} </span>
-                    </div><br>
-        		{% endfor %}
-        		</ul>
-      		{% endif %}
-		    {% endwith %}
-
-			<div class="login-form">
-				<div class="control-group">
-				<p><a href="/add_classes">Add Classes</a> </p>
-            <p><a href="/common">Find Common Free Time</a></p>
-			</div>
-		</div>
-	</div>
+    <div class = home_canvas>
+        <h1>Hello {{user}}</h1>
+        
+    </div>
 {% endblock %}
