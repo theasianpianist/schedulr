@@ -34,7 +34,32 @@
                 <input type="submit" value="Find Common Time" class="btn btn-primary btn-large btn-block" >
 			    <br>
                 {% if common_time %}
-                <p>Your shared time is {{common_time}}</p>
+				<table width="100%">
+					<tr>
+						<th colspan="7">Your Shared Free Time</th>
+					</tr>
+					<tr>
+						<th>Sunday</th>
+						<th>Monday</th>
+						<th>Tuesday</th>
+						<th>Wednesday</th>
+						<th>Thursday</th>
+						<th>Friday</th>
+						<th>Saturday</th>
+					</tr>
+					<tr>
+
+				{% for day in common_time %}
+					<td>
+						{% for interval in day %}
+							{{interval[0]}} - {{interval[1]}}<br>
+						{% endfor %}
+					</td>
+				{% endfor %}
+					</tr>
+
+				</table>
+
                 {% endif %}
 			</div>
 		</div>

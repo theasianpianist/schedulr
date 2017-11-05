@@ -17,6 +17,19 @@ def check_password(user_email, password):
 		if con:
 			con.close()
 
+def add_user(email, password):
+	email = email.upper()
+	try:
+		con = sql.connect(db_name)
+		with con:
+			cur = con.cursor()
+			cur.execute("INSERT INTO main (email, pass) VALUES (?, ?)", (email, password))
+	except sql.Error as error:
+		print("Error %s", str(error))
+	finally:
+		if con:
+			con.close()
+
 def add_friend(user_email, friend_email):
 	user_email = user_email.upper()
 	friend_email = friend_email.upper()

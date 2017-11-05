@@ -5,6 +5,7 @@ import os
 import database
 import comparison
 from user_management import check_password, add_friend
+import user_management
 app = Flask(__name__)
 
 lm = LoginManager()
@@ -77,6 +78,22 @@ def submit_classes():
 		return render_template('add_classes.html')
 	database.put_classes(g.user.get_id(), classes, starts, ends, days)
 	return index()
+
+@app.route('/add_user')
+def add_user():
+	if not session.get('logged_in'):
+		session['logged_in'] = False
+		logout_user()
+	return render_template('add_user.html')
+
+@app.route('/submit_user', methods=['POST','GET'])
+def submit_user():
+	username = str(request.form['username'])
+	password = str(request.form['password'])
+	user_management.add_user(username, password)
+	flash("User added")
+	return index()
+
 
 @app.route('/common')
 def common():

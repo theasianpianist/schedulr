@@ -4,13 +4,13 @@
     <title>Schedulr</title>
   </head>
   <body>
- 
- 
-	<form action="/login" method="POST">
+
+
+	<form action="/submit_user" method="POST">
 		<div class="login">
 			<div class="login-screen">
 				<div class="app-title">
-					<h1>Login</h1>
+					<h1>Create Account</h1>
 				</div>
 				{% with messages = get_flashed_messages() %}
 				{% if messages %}
@@ -32,9 +32,8 @@
 					<input type="password" class="login-field" value="" placeholder="password" name="password">
 					</div>
 
-					<input type="submit" value="Log In" class="btn btn-primary btn-large btn-block" >
+					<input type="submit" value="Create Account" class="btn btn-primary btn-large btn-block" >
 					<br>
-                    <a href="/add_user">Create an account</a>
 				</div>
 			</div>
 		</div>
