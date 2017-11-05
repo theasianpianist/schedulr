@@ -90,8 +90,10 @@ def add_user():
 def submit_user():
 	username = str(request.form['username'])
 	password = str(request.form['password'])
-	user_management.add_user(username, password)
-	flash("User added")
+	if(user_management.add_user(username, password)):
+		flash("User added")
+	else:
+		flash("User not added")
 	return index()
 
 

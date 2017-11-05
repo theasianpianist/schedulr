@@ -1,4 +1,7 @@
 import sqlite3 as sql
+import bcrypt
+import unicodedata
+
 db_name = "test.db"
 def check_password(user_email, password):
 	user_email = user_email.upper()
@@ -8,8 +11,10 @@ def check_password(user_email, password):
 			cur = con.cursor()
 			cur.execute('''SELECT pass FROM main WHERE email = ?''', (user_email,))
 			tpass = cur.fetchall()
-			if tpass and password == tpass[0][0]:
-				return True
+			if tpass:
+				hashed = tpass[0][0]
+				if bcrypt.checkpw(password.encode('utf-8'), hashed):
+					return True
 			return False
 	except sql.Error as error:
 		print("Error %s", str(error))
@@ -19,16 +24,22 @@ def check_password(user_email, password):
 
 def add_user(email, password):
 	email = email.upper()
+	salt = bcrypt.gensalt()
+	hashed = bcrypt.hashpw(password.encode('utf-8'), salt)
 	try:
 		con = sql.connect(db_name)
 		with con:
 			cur = con.cursor()
-			cur.execute("INSERT INTO main (email, pass) VALUES (?, ?)", (email, password))
+			cur.execute("INSERT INTO main (email, pass) VALUES (?, ?)", (email, hashed))
 	except sql.Error as error:
 		print("Error %s", str(error))
+		return False
 	finally:
 		if con:
 			con.close()
+		return True
+
+
 
 def add_friend(user_email, friend_email):
 	user_email = user_email.upper()
