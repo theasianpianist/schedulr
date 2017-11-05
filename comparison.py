@@ -3,9 +3,9 @@ import database
 def find_all_friends_free_time(user_email):
 	pass
 
-def find_shared_free_time(user_email, friend_email):
-	user_classes = database.get_user_classes(user_email.upper())
-	friend_classes = database.get_user_classes(friend_email.upper())
+def find_shared_free_time(user_email, friend_email, day):
+	user_classes = database.get_user_classes(user_email.upper(), day)
+	friend_classes = database.get_user_classes(friend_email.upper(), day)
 	user_free_time = find_free_time(user_classes)
 	friend_free_time = find_free_time(friend_classes)
 	shared_free_time = []

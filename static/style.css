@@ -31,17 +31,21 @@ text-align: center;
 .control-group {
 margin-bottom: 10px;
 }
- 
+
+.login-field {
+    width: 250px;
+}
+
 input {
-text-align: center;
-background-color: #ECF0F1;
-border: 2px solid transparent;
-border-radius: 3px;
-font-size: 16px;
-font-weight: 200;
-padding: 10px 0;
-width: 250px;
-transition: border .5s;
+    text-align: center;
+    background-color: #ECF0F1;
+    border: 2px solid transparent;
+    border-radius: 3px;
+    font-size: 16px;
+    font-weight: 200;
+    padding: 10px 0;
+    width: 20%;
+    transition: border .5s;
 }
  
 input:focus {
@@ -75,4 +79,33 @@ box-shadow: none;
   color: #444;
   display: block;
 	margin-top: 12px;
+}
+
+.text-input {
+    width: 50%;
+}
+
+.weekDays-selector {
+    width: 50%;
+}
+
+input[type=checkbox] {
+  display: none!important;
+}
+
+input[type=checkbox] + label {
+  display: inline-block;
+  border-radius: 6px;
+  background: #dddddd;
+  height: 40px;
+  width: 30px;
+  margin-right: 3px;
+  line-height: 40px;
+  text-align: center;
+  cursor: pointer;
+}
+
+input[type=checkbox]:checked + label {
+  background: #3498DB;
+  color: #ffffff;
 }

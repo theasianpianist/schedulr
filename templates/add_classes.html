@@ -2,7 +2,7 @@
 {% block content %}
 
 <form action="/submit_classes" method="POST">
-	<div class="login">
+	<div>
 		<div class="login-screen">
 			<div class="app-title">
 				<h1>Enter Classes</h1>
@@ -20,16 +20,146 @@
  
 			<div class="login-form">
 				<div class="control-group">
-				<input type="text" class="login-field" value="" placeholder="username" name="class1">
-				<label class="login-field-icon fui-user"></label>
+                    <input type="text" placeholder="Class Name" name="class1">
+                    <input type="time" name="start1">
+                    <input type="time" name="end1">
+                    <input type="checkbox" id="sun1" class="weekday" name="sun1"/>
+                    <label for="sun1">S</label>
+                    <input type="checkbox" id="mon1" class="weekday" name="mon1"/>
+                    <label for="mon1">M</label>
+                    <input type="checkbox" id="tue1" class="weekday" name="tue1"/>
+                    <label for="tue1">T</label>
+                    <input type="checkbox" id="wed1" class="weekday" name="wed1"/>
+                    <label for="wed1">W</label>
+                    <input type="checkbox" id="thu1" class="weekday" name="thu1"/>
+                    <label for="thu1">T</label>
+                    <input type="checkbox" id="fri1" class="weekday" name="fri1"/>
+                    <label for="fri1">F</label>
+                    <input type="checkbox" id="sat1" class="weekday" name="sat1"/>
+                    <label for="sat1">S</label>
 				</div>
  
 				<div class="control-group">
-				<input type="text" class="login-field" value="" placeholder="password" name="class2">
-				<label class="login-field-icon fui-lock"></label>
+                    <input type="text" placeholder="Class Name" name="class2">
+                    <input type="time"  name="start2">
+                    <input type="time"  name="end2">
+                    <input type="checkbox" id="sun2" class="weekday" name="sun2"/>
+                    <label for="sun2">S</label>
+                    <input type="checkbox" id="mon2" class="weekday" name="mon2"/>
+                    <label for="mon2">M</label>
+                    <input type="checkbox" id="tue2" class="weekday" name="tue2"/>
+                    <label for="tue2">T</label>
+                    <input type="checkbox" id="wed2" class="weekday" name="wed2"/>
+                    <label for="wed2">W</label>
+                    <input type="checkbox" id="thu2" class="weekday" name="thu2"/>
+                    <label for="thu2">T</label>
+                    <input type="checkbox" id="fri2" class="weekday" name="fri2"/>
+                    <label for="fri2">F</label>
+                    <input type="checkbox" id="sat2" class="weekday" name="sat2"/>
+                    <label for="sat2">S</label>
+				</div>
+
+                <div class="control-group">
+                    <input type="text" placeholder="Class Name" name="class3">
+                    <input type="time"  name="start3">
+                    <input type="time"  name="end3">
+                    <input type="checkbox" id="sun3" class="weekday" name="sun3"/>
+                    <label for="sun3">S</label>
+                    <input type="checkbox" id="mon3" class="weekday" name="mon3"/>
+                    <label for="mon3">M</label>
+                    <input type="checkbox" id="tue3" class="weekday" name="tue3"/>
+                    <label for="tue3">T</label>
+                    <input type="checkbox" id="wed3" class="weekday" name="wed3"/>
+                    <label for="wed3">W</label>
+                    <input type="checkbox" id="thu3" class="weekday" name="thu3"/>
+                    <label for="thu3">T</label>
+                    <input type="checkbox" id="fri3" class="weekday" name="fri3"/>
+                    <label for="fri3">F</label>
+                    <input type="checkbox" id="sat3" class="weekday" name="sat3"/>
+                    <label for="sat3">S</label>
+				</div>
+
+                <div class="control-group">
+                    <input type="text" placeholder="Class Name" name="class4">
+                    <input type="time"  name="start4">
+                    <input type="time"  name="end4">
+                    <input type="checkbox" id="sun4" class="weekday" name="sun4"/>
+                    <label for="sun4">S</label>
+                    <input type="checkbox" id="mon4" class="weekday" name="mon4"/>
+                    <label for="mon4">M</label>
+                    <input type="checkbox" id="tue4" class="weekday" name="tue4"/>
+                    <label for="tue4">T</label>
+                    <input type="checkbox" id="wed4" class="weekday" name="wed4"/>
+                    <label for="wed4">W</label>
+                    <input type="checkbox" id="thu4" class="weekday" name="thu4"/>
+                    <label for="thu4">T</label>
+                    <input type="checkbox" id="fri4" class="weekday" name="fri4"/>
+                    <label for="fri4">F</label>
+                    <input type="checkbox" id="sat4" class="weekday" name="sat4"/>
+                    <label for="sat4">S</label>
+				</div>
+
+                <div class="control-group">
+                    <input type="text" placeholder="Class Name" name="class5">
+                    <input type="time"  name="start5">
+                    <input type="time"  name="end5">
+                    <input type="checkbox" id="sun5" class="weekday" name="sun5"/>
+                    <label for="sun5">S</label>
+                    <input type="checkbox" id="mon5" class="weekday" name="mon5"/>
+                    <label for="mon5">M</label>
+                    <input type="checkbox" id="tue5" class="weekday" name="tue5"/>
+                    <label for="tue5">T</label>
+                    <input type="checkbox" id="wed5" class="weekday" name="wed5"/>
+                    <label for="wed5">W</label>
+                    <input type="checkbox" id="thu5" class="weekday" name="thu5"/>
+                    <label for="thu5">T</label>
+                    <input type="checkbox" id="fri5" class="weekday" name="fri5"/>
+                    <label for="fri5">F</label>
+                    <input type="checkbox" id="sat5" class="weekday" name="sat5"/>
+                    <label for="sat5">S</label>
+				</div>
+
+                <div class="control-group">
+                    <input type="text" placeholder="Class Name" name="class6">
+                    <input type="time"  name="start6">
+                    <input type="time"  name="end6">
+                    <input type="checkbox" id="sun6" class="weekday" name="sun6"/>
+                    <label for="sun6">S</label>
+                    <input type="checkbox" id="mon6" class="weekday" name="mon6"/>
+                    <label for="mon6">M</label>
+                    <input type="checkbox" id="tue6" class="weekday" name="tue6"/>
+                    <label for="tue6">T</label>
+                    <input type="checkbox" id="wed6" class="weekday" name="wed6"/>
+                    <label for="wed6">W</label>
+                    <input type="checkbox" id="thu6" class="weekday" name="thu6"/>
+                    <label for="thu6">T</label>
+                    <input type="checkbox" id="fri6" class="weekday" name="fri6"/>
+                    <label for="fri6">F</label>
+                    <input type="checkbox" id="sat6" class="weekday" name="sat6"/>
+                    <label for="sat6">S</label>
+				</div>
+
+                <div class="control-group">
+                    <input type="text" placeholder="Class Name" name="class7">
+                    <input type="time"  name="start7">
+                    <input type="time"  name="end7">
+                    <input type="checkbox" id="sun7" class="weekday" name="sun7"/>
+                    <label for="sun7">S</label>
+                    <input type="checkbox" id="mon7" class="weekday" name="mon7"/>
+                    <label for="mon7">M</label>
+                    <input type="checkbox" id="tue7" class="weekday" name="tue7"/>
+                    <label for="tue7">T</label>
+                    <input type="checkbox" id="wed7" class="weekday" name="wed7"/>
+                    <label for="wed7">W</label>
+                    <input type="checkbox" id="thu7" class="weekday" name="thu7"/>
+                    <label for="thu7">T</label>
+                    <input type="checkbox" id="fri7" class="weekday" name="fri7"/>
+                    <label for="fri7">F</label>
+                    <input type="checkbox" id="sat7" class="weekday" name="sat7"/>
+                    <label for="sat7">S</label>
 				</div>
  
-                <input type="submit" value="Log in" class="btn btn-primary btn-large btn-block" >
+                <input type="submit" value="Add Classes" class="btn btn-primary btn-large btn-block" >
 			    <br>
 			</div>
 		</div>

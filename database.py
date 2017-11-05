@@ -1,35 +1,31 @@
 import re
 import sqlite3 as sql
 import sys
+import itertools
 
 db_name = "test.db"
 con = None
 
-def get_input():
-	num_classes = input("How many classes do you have? ")
-	num_pattern = re.compile("^[0-9]+$")
-	while not num_pattern.match(num_classes):
-		print("Please enter a valid number")
-		num_classes = input("How many classes do you have? ")
-	num_classes = int(num_classes)
-	schedule = []
-	for i in range(num_classes):
-		course = []
-		course.append(input("Name of class " + str(i + 1) + ": "))
-		course.append(input("Start time of class " + str(i + 1) + ": "))
-		course.append(input("End time of class " + str(i + 1) + ": "))
-		schedule.append(course)
-	return schedule
-
-def put_classes(user, schedule):
+def put_classes(user, classes, starts, ends, days):
 	user = user.upper()
+	schedule = [[course, start, end] for course, start, end in itertools.zip_longest(classes, starts, ends)]
+	week = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"]
 	try:
 		con = sql.connect(db_name)
 		with con:
 			cur = con.cursor()
-			cur.execute('''UPDATE main SET classes = ? WHERE email = ?''', (schedule, user))
+			for index in range(len(days)):
+				for i, x in itertools.zip_longest(week, days[index]):
+					if x is not None:
+						cur.execute("SELECT (%s) FROM main WHERE email = ?" % i, (user,))
+						old = cur.fetchone()[0]
+						if old is not None:
+							arg = old + "," + schedule[index]
+						else:
+							arg = schedule[index]
+						cur.execute("UPDATE main SET (%s) = ? WHERE email = ?" % i, (str(arg), user))
 	except sql.Error as error:
-		print("Error %s", str(error))
+		print("Error: %s" % str(error))
 	finally:
 		if con:
 			con.close()
@@ -47,15 +43,15 @@ def put_friends(user, friends):
 		if con:
 			con.close()
 
-def get_user_classes(user_email):
+def get_user_classes(user_email, day):
 	classes = []
 	try:
 		con = sql.connect(db_name)
 		with con:
 			cur = con.cursor()
-			cur.execute('''SELECT classes FROM main WHERE email = ?''', (user_email,))
+			cur.execute("SELECT (%s) FROM main WHERE email = ?" % str(day), (user_email,))
 			classes = cur.fetchall()
-			classes = eval(classes[0][0])
+			classes = eval("[" + classes[0][0] + "]")
 	except sql.Error as error:
 		print("Error %s", str(error))
 		sys.exit(1)
@@ -83,15 +79,9 @@ def get_friends(user_email):
 	return friends
 
 if __name__ == "__main__":
-	friendsa = ["user2@psu.edu"]
-	friendsb = ["user1@psu.edu"]
-	schd = get_input()
-	put_db("user1@psu.edu", schd, friendsa)
-	schd = get_input()
-	put_db("user2@psu.edu", schd, friendsb)
-	friends = get_friends("user1")
-	friend_classes = []
-	for x in friends:
-		friend_classes.append([x, get_user_classes(x)])
-	print(friend_classes)
+	days = [[None, 'on', None, 'on', None, 'on', None], [None, None, None, None, None, None, None], [None, None, None, None, None, None, None], [None, None, None, None, None, None, None], [None, None, None, None, None, None, None], [None, None, None, None, None, None, None], [None, None, None, None, None, None, None]]
+	classes = ['CMPSC 311', '', '', '', '', '', '']
+	starts = ['15:35', '', '', '', '', '', '']
+	ends = ['16:25', '', '', '', '', '', '']
+	put_classes("user1@psu.edu", classes, starts, ends, days)
 

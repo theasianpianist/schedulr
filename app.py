@@ -31,10 +31,6 @@ def index():
 	else:
 		return render_template('index.html', user = g.user.get_id())
 
-@app.route('/refresh_index')
-def refresh_index():
-	return render_template('index.html', user="no")
-
 @app.route('/add_classes')
 def add_classes():
 	if not session.get('logged_in'):
@@ -44,10 +40,37 @@ def add_classes():
 
 @app.route('/submit_classes', methods=['POST'])
 def submit_classes():
-	class1 = str(request.form['class1'])
-	class2 = str(request.form['class2'])
-	print(class1 + class2)
-
+	week = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"]
+	classes = []
+	starts = []
+	ends = []
+	days = []
+	for i in range(7):
+		classes.append(str(request.form['class' + str(i + 1)]))
+		starts.append(request.form['start' + str(i + 1)])
+		ends.append(request.form['end' + str(i + 1)])
+		if starts[i] > ends[i]:
+			flash("A class cannot start after it ends")
+			return render_template('add_classes.html')
+		class_days = []
+		for day in week:
+			form = day + str(i + 1)
+			class_days.append(request.form.get(form))
+		if class_days.count(None) == len(class_days) and classes[i] != "":
+			flash("Please select at least one day per class")
+			return render_template('add_classes.html')
+		days.append(class_days)
+	if classes.count("") == len(classes):
+		flash("Please enter at least one class")
+		return render_template('add_classes.html')
+	if starts.count("") != classes.count(""):
+		flash("Please enter a start time for every class")
+		return render_template('add_classes.html')
+	if starts.count("") != ends.count(""):
+		flash("Please enter an end time for every class")
+		return render_template('add_classes.html')
+	database.put_classes(g.user.get_id(), classes, starts, ends, days)
+	return index()
  
 @app.route('/login', methods=['GET','POST'])
 def login():
