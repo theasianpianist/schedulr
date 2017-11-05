@@ -17,6 +17,9 @@ class User(UserMixin):
 		self.name = "user" + str(id)
 		self.password = self.name + "_secret"
 
+	def get_id(self):
+		return self.id
+
 	def __repr__(self):
 		return "%s/%s/%s" % (self.id, self.name, self.password)
 
@@ -87,7 +90,7 @@ def find_common():
 	time = []
 	for day in week:
 		time.append(comparison.find_shared_free_time(g.user.get_id(), friend, day))
-	return render_template('common.html', common_time = time)
+	return render_template('common.html', friend_list = database.get_friends(g.user.get_id()), common_time = time)
 
 
 @app.route('/login', methods=['GET','POST'])
