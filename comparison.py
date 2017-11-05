@@ -18,7 +18,10 @@ def find_shared_free_time(user_email, friend_email, day):
 
 def find_free_time(schedule):
 	free_time = []
-	start = "00"
+	if schedule[0][0] is None:
+		free_time.append(["00:00", "24:00"])
+		return free_time
+	start = "00:00"
 	for interval in schedule:
 		if start < interval[1]:
 			free_time.append([start, interval[1]])

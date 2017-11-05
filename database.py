@@ -20,7 +20,7 @@ def put_classes(user, classes, starts, ends, days):
 						cur.execute("SELECT (%s) FROM main WHERE email = ?" % i, (user,))
 						old = cur.fetchone()[0]
 						if old is not None:
-							arg = old + "," + schedule[index]
+							arg = old + "," + str(schedule[index])
 						else:
 							arg = schedule[index]
 						cur.execute("UPDATE main SET (%s) = ? WHERE email = ?" % i, (str(arg), user))
@@ -51,7 +51,8 @@ def get_user_classes(user_email, day):
 			cur = con.cursor()
 			cur.execute("SELECT (%s) FROM main WHERE email = ?" % str(day), (user_email,))
 			classes = cur.fetchall()
-			classes = eval("[" + classes[0][0] + "]")
+			if classes[0][0] is not None:
+				classes = eval("[" + classes[0][0] + "]")
 	except sql.Error as error:
 		print("Error %s", str(error))
 		sys.exit(1)

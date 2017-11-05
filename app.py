@@ -3,6 +3,7 @@ from flask import Flask, flash, redirect, render_template, request, session, abo
 from flask_login import login_required, logout_user, login_user, LoginManager, current_user, UserMixin, login_manager
 import os
 import database
+import comparison
 from user_management import check_password
 app = Flask(__name__)
 
@@ -71,7 +72,24 @@ def submit_classes():
 		return render_template('add_classes.html')
 	database.put_classes(g.user.get_id(), classes, starts, ends, days)
 	return index()
- 
+
+@app.route('/common')
+def common():
+	if not session.get('logged_in'):
+		return render_template('login.html')
+	else:
+		return render_template('common.html', friend_list = database.get_friends(g.user.get_id()))
+
+@app.route('/find_common', methods=['POST'])
+def find_common():
+	friend = request.form.get('friends')
+	week = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"]
+	time = []
+	for day in week:
+		time.append(comparison.find_shared_free_time(g.user.get_id(), friend, day))
+	return render_template('common.html', common_time = time)
+
+
 @app.route('/login', methods=['GET','POST'])
 def login():
 	username = str(request.form['username'])

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+
+<form action="/find_common" method="POST">
+	<div>
+		<div class="login-screen">
+			<div class="app-title">
+				<h1>Enter Classes</h1>
+			</div>
+			{% with messages = get_flashed_messages() %}
+      		{% if messages %}
+        		{% for message in messages %}
+                    <div style="text-align: center">
+            		<span style="color: red;">{{message}} </span>
+                    </div><br>
+        		{% endfor %}
+        		</ul>
+      		{% endif %}
+		    {% endwith %}
+
+			<div class="login-form">
+                <div class="control-group">
+                    <h2>Pick a friend to find common free time with:</h2>
+                </div>
+				<div class="control-group">
+                    <select name="friends">
+                      {% for f in friend_list %}
+                        <option name="{{ f }}">{{ f }}</option>
+                      {% endfor %}
+                </select>
+				</div>
+
+
+                <input type="submit" value="Find Common Time" class="btn btn-primary btn-large btn-block" >
+			    <br>
+			</div>
+		</div>
+	</div>
+</form>
+{% endblock %}
