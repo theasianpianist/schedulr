@@ -4,22 +4,22 @@ import sys
 
 db_name = "test.db"
 con = None
-#
-# def get_input():
-# 	num_classes = input("How many classes do you have? ")
-# 	num_pattern = re.compile("^[0-9]+$")
-# 	while not num_pattern.match(num_classes):
-# 		print("Please enter a valid number")
-# 		num_classes = input("How many classes do you have? ")
-# 	num_classes = int(num_classes)
-# 	schedule = []
-# 	for i in range(num_classes):
-# 		course = []
-# 		course.append(input("Name of class " + str(i + 1) + ": ").upper())
-# 		course.append(input("Start time of class " + str(i + 1) + ": ").upper())
-# 		course.append(input("End time of class " + str(i + 1) + ": ").upper())
-# 		schedule.append(course)
-# 	return schedule
+
+def get_input():
+	num_classes = input("How many classes do you have? ")
+	num_pattern = re.compile("^[0-9]+$")
+	while not num_pattern.match(num_classes):
+		print("Please enter a valid number")
+		num_classes = input("How many classes do you have? ")
+	num_classes = int(num_classes)
+	schedule = []
+	for i in range(num_classes):
+		course = []
+		course.append(input("Name of class " + str(i + 1) + ": "))
+		course.append(input("Start time of class " + str(i + 1) + ": "))
+		course.append(input("End time of class " + str(i + 1) + ": "))
+		schedule.append(course)
+	return schedule
 
 def put_db(user, schedule, friends = None):
 	user_sanitized = user.upper()
@@ -31,8 +31,8 @@ def put_db(user, schedule, friends = None):
 		con = sql.connect(db_name)
 		with con:
 			cur = con.cursor()
-			cur.execute('''CREATE TABLE IF NOT EXISTS main(email TEXT PRIMARY KEY, classes TEXT, friends TEXT)''')
-			cur.execute('''INSERT INTO main VALUES(?, ?, ?)''', (str(user_sanitized), str(schedule_sanitized), str(friends_sanitized)))
+			cur.execute('''CREATE TABLE IF NOT EXISTS main(email TEXT PRIMARY KEY, classes TEXT, friends TEXT, pass TEXT)''')
+			cur.execute('''INSERT INTO main (email, classes, friends) VALUES(?, ?, ?)''', (str(user_sanitized), str(schedule_sanitized), str(friends_sanitized)))
 	except sql.Error as error:
 		print("Error %s", str(error))
 		sys.exit(1)
@@ -76,12 +76,12 @@ def get_friends(user_email):
 	return friends
 
 if __name__ == "__main__":
-	# friendsa = ["user2"]
-	# friendsb = ["user1"]
-	# schd = get_input()
-	# put_db("user1", schd, friendsa)
-	# schd = get_input()
-	# put_db("user2", schd, friendsb)
+	friendsa = ["user2@psu.edu"]
+	friendsb = ["user1@psu.edu"]
+	schd = get_input()
+	put_db("user1@psu.edu", schd, friendsa)
+	schd = get_input()
+	put_db("user2@psu.edu", schd, friendsb)
 	friends = get_friends("user1")
 	friend_classes = []
 	for x in friends:
